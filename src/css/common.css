@@ -211,26 +211,19 @@
 
 /* 底部模块制作 */
 .footer {
-    height: 315px;
+    height: 415px;
     padding-top: 30px;
-    /* padding-left: 100px;
-    padding-right: 100px; */
-    /* text-align: center; */
     background-color: #e4ebe3;
-    position: relative;
+    padding-left: 100px;
+    text-align: center;
 }
 
 .mod_help {
     padding-top: 20px;
     padding-left: 150px;
     height: 185px;
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-   
+    background-color: #e4ebe3;
 }
 
 .mod_help dl {

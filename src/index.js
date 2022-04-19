@@ -1,19 +1,23 @@
 import ReactDOM from 'react-dom';
 // import './index.css';
 import React from "react";
+import { HashRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import "./css/base.css";
 import "./css/Login.css";
 import "./css/index.css";
 import "./css/common.css";
 import "./css/detail.css";
+import "./css/addbook.css";
+import "./css/order.css";
 
 
 
 class Login extends React.Component {
     render() {
-        const display = this.props.display;
+        // const display = this.props.display;
         return (
-            display &&
+            // display &&
             <div class="w">
                 <header>
                     <div class="logo">
@@ -75,13 +79,13 @@ class HP_Header extends React.Component {
                         <div className="fl">
                             <ul>
                                 <li>Welcome to Bookworm! &nbsp;</li>
-                                <li><a href="#">Please log in | &nbsp;</a></li>
-                                <li><a href="" onClick={this.props.showLoginPage}>Sign up for free</a></li>
+                                <li><a href="/#/login">Please log in | &nbsp;</a></li>
+                                <li><a href="/#/login">Sign up for free</a></li>
                             </ul>
                         </div>
                         <div className="fr">
                             <ul>
-                                <li><a href="" onClick={this.props.showHomePage}>Homepage</a></li>
+                                <li><a href="/#/homepage">Homepage</a></li>
                                 <li></li>
                                 <li><a href="">My orders</a></li>
                                 <li></li>
@@ -233,7 +237,8 @@ class HP_Rec extends React.Component {
                         <li><img src="images/book1.jpeg" alt="" height="100%"></img></li>
                         <li><img src="images/book2.jpeg" alt="" height="100%"></img></li>
                         <li><img src="images/book3.jpeg" alt="" height="100%"></img></li>
-                        <li onClick={this.props.showDetailPage}><img src="images/book4.jpeg" alt="" height="100%"></img></li>
+                        {/* <li onClick={this.props.showDetailPage}><img src="images/book4.jpeg" alt="" height="100%"></img></li> */}
+                        <li><img src="images/book4.jpeg" alt="" height="100%"></img></li>
                         <li><img src="images/book5.jpeg" alt="" height="100%"></img></li>
                         <li><img src="images/book6.jpeg" alt="" height="100%"></img></li>
                         <li><img src="images/book7.png" alt="" height="100%"></img></li>
@@ -363,14 +368,15 @@ class HP_Footer extends React.Component {
 
 class Homepage extends React.Component {
     render() {
-        const display = this.props.display;
+        // const display = this.props.display;
         return (
-            display &&
+            // display &&
             <React.Fragment>
                 <HP_Header />
                 <HP_Nav />
                 <HP_Main />
-                <HP_Rec showDetailPage={() => this.props.showDetailPage()} />
+                {/* <HP_Rec showDetailPage={() => this.props.showDetailPage()} /> */}
+                <HP_Rec />
                 <HP_Footer />
             </React.Fragment>
         )
@@ -378,13 +384,205 @@ class Homepage extends React.Component {
 }
 class Detailpage extends React.Component {
     render() {
-        const display = this.props.display;
+        // const display = this.props.display;
         return (
-            display &&
+            // display &&
             <React.Fragment>
-                <HP_Header showHomePage={() => this.props.showHomePage()} showLoginPage={() => this.props.showLoginPage()} />
+                {/* <HP_Header showHomePage={() => this.props.showHomePage()} showLoginPage={() => this.props.showLoginPage()} /> */}
+                <HP_Header />
                 <HP_Nav />
                 <Detail />
+                <HP_Footer />
+            </React.Fragment>
+        )
+    }
+}
+
+class AddBook extends React.Component {
+    render() {
+        return (
+            <div className="ab_container w">
+                <h1> Add a new book</h1>
+                <form name="bookToAdd" onSubmit={this.handleAdd}>
+                    <p>Name:  <input type="text" id="bk_name" /></p>
+                    <p>Edition:  <input type="text" id="bk_edition" /></p>
+                    <p>Author:  <input type="text" id="bk_author" /></p>
+                    <p>Year of publish:   <input type="text" id="bk_year" /></p>
+                    <p>Price:  <input type="text" id="bk_price" /></p>
+                    <p>Category:   <input type="text" id="bk_category" /></p>
+                    <div className="description">
+                        <p>Description: </p>
+                        <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="bk_des" ref="bk_des" contentEditable="true"></div>
+                    </div >
+                    <div className="photo">
+                        <p>Post Photo:</p>
+                        <input type="file" />
+                    </div>
+                    <p></p>
+                    <button>Add</button>
+                </form>
+
+            </div>
+
+        )
+    }
+}
+
+class Order extends React.Component {
+    render() {
+        return (
+            <div className="od_container w">
+                <h1> My Orders</h1>
+                <OrderTable />
+            </div>
+
+        )
+    }
+}
+function OrderRow(props) {
+    return (
+        <tr>
+            <td>1</td>
+            <td>Intro to Computer Science</td>
+            <td>01-01-2022</td>
+            <td>Delivered</td>
+            <td><button>Add a review</button></td>
+        </tr>
+    );
+    // const order = props.order;
+    // return (
+    //   <tr>
+    //     <td>{order.id}</td>
+    //     <td>{order.book}</td>
+    //     <td>{order.date ? order.date.toDateString() : ''}</td>
+    //     <td>{order.status}</td>
+    //     <td>{order.review}</td>
+    //   </tr>
+    // );
+}
+
+function OrderTable(props) {
+    // const orderRows = props.orders.map(order =>
+    //   <OrderRow key={order.id} order={order} />
+    // );
+
+    return (
+        <div className="od_table_container">
+            <table className="od_table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Book</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <OrderRow />
+                    {/* {orderRows} */}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+// Star Component
+function Star({ marked, starId }) {
+    return (
+        <span star-id={starId} style={{ color: "#ff9933" }} role="button">
+            {marked ? "\u2605" : "\u2606"}
+        </span>
+    );
+}
+
+// Star Rating
+function StarRating(props) {
+    // rating display
+    const [rating, setRating] = React.useState(
+        typeof props.rating == "number" ? props.rating : 0
+    );
+    // hover setting
+    const [selection, setSelection] = React.useState(0);
+    const hoverOver = event => {
+        let val = 0;
+        if (event && event.target && event.target.getAttribute("star-id"))
+            val = event.target.getAttribute("star-id");
+        setSelection(val);
+    };
+    return (
+        <div
+            // hover setting
+            onMouseOut={() => hoverOver(null)}
+            // click to choose rating
+            onClick={event =>
+                setRating(event.target.getAttribute("star-id") || rating)
+            }
+            onMouseOver={hoverOver}
+        >
+            {/* create 5 components */}
+            {Array.from({ length: 5 }, (v, i) => (
+                <Star
+                    starId={i + 1}
+                    key={`star_${i + 1} `}
+                    marked={selection ? selection >= i + 1 : rating >= i + 1}
+                />
+            ))}
+        </div>
+    );
+}
+
+
+class Review extends React.Component {
+    render() {
+        return (
+            <div className="r_container w">
+                <h1> Write a Review</h1>
+                <form name="reviewToAdd" onSubmit={this.handleAdd}>
+                    <p>Rate </p>
+                    <StarRating />
+                    <p>Comment </p>
+                    <div onFocus={this.handleFocus} onBlur={this.handleBlur} className="comment" ref="comment_in" contentEditable="true"></div>
+                    <div className="photo">
+                        <p>Picture/Video(Optional)</p>
+                        <input type="file" />
+                    </div>
+
+                    <p></p>
+                    <button>Submit Review</button>
+                </form>
+
+            </div>
+
+        )
+    }
+}
+
+class AddBookPage extends React.Component {
+    render() {
+        // const display = this.props.display;
+        return (
+            // display &&
+            <React.Fragment>
+                <HP_Header showHomePage={() => this.props.showHomePage()} showLoginPage={() => this.props.showLoginPage()} />
+                {/* <HP_Nav /> */}
+                <AddBook />
+                <HP_Footer />
+            </React.Fragment>
+        )
+    }
+}
+
+class OrderPage extends React.Component {
+    render() {
+        // const display = this.props.display;
+        return (
+            // display &&
+            <React.Fragment>
+                <HP_Header showHomePage={() => this.props.showHomePage()} showLoginPage={() => this.props.showLoginPage()} />
+                {/* <HP_Nav /> */}
+                <Order />
+                <Review />
                 <HP_Footer />
             </React.Fragment>
         )
@@ -394,48 +592,45 @@ class Detailpage extends React.Component {
 class Index extends React.Component {
     constructor() {
         super();
-        this.state = {
-            diaplayStatus: { "homePage": true, 'detailPage': false, 'LoginPage': false }
-        };
-    }
-
-    showHomePage() {
-        const status = this.state.diaplayStatus;
-        status['homePage'] = true;
-        status['detailPage'] = false;
-        status['LoginPage'] = false;
-        this.setState({ diaplayStatus: status })
-    }
-
-    showDetailPage() {
-        const status = this.state.diaplayStatus;
-        status['homePage'] = false;
-        status['detailPage'] = true;
-        status['LoginPage'] = false;
-        this.setState({ diaplayStatus: status })
-    }
-
-    showLoginPage() {
-        const status = this.state.diaplayStatus;
-        status['homePage'] = false;
-        status['detailPage'] = false;
-        status['LoginPage'] = true;
-        this.setState({ diaplayStatus: status })
+        // this.state = {
+        //     diaplayStatus: { "homePage": true, 'detailPage': false, 'LoginPage': false }
+        // };
     }
 
     render() {
         return (
             <React.Fragment>
-                <Homepage display={this.state.diaplayStatus.homePage} showDetailPage={() => this.showDetailPage()} showLoginPage={() => this.showLoginPage()} />
+                {/* <Homepage display={this.state.diaplayStatus.homePage} showDetailPage={() => this.showDetailPage()} showLoginPage={() => this.showLoginPage()} />
                 <Detailpage display={this.state.diaplayStatus.detailPage} showHomePage={() => this.showHomePage()} />
-                <Login display={this.state.diaplayStatus.LoginPage} showHomePage={() => this.showHomePage()} />
+                <Login display={this.state.diaplayStatus.LoginPage} showHomePage={() => this.showHomePage()} /> */}
+                <Switch>
+                    <Redirect exact from="/" to="/homepage" />
+                    <Route path="/homepage">
+                        <Homepage />
+                    </Route>
+
+                    <Route path="/detail">
+                        <Detailpage />
+                    </Route>
+
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/order">
+                        <OrderPage />
+                    </Route>
+                    <Route path="/addbook">
+                        <AddBookPage />
+                    </Route>
+                </Switch>
             </React.Fragment>
         )
     }
 }
 
+const element = (<HashRouter><Index /></HashRouter>)
 
 ReactDOM.render(
-    <Index />,
+    element,
     document.getElementById('root')
 );
